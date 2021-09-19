@@ -5,6 +5,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NewsController; 
+use App\Http\Controllers\WelcomeController; 
+use App\Http\Controllers\PSController;
+use App\Http\Controllers\SaranaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,20 +28,25 @@ use App\Http\Controllers\NewsController;
     return view('home');
 });*/
 
-Route::get('/', [HomeController::class,'index']);
+Route::get('/', [HomeController::class,'home']);
 
-Route::prefix('prodi')->group(function(){
+/*Route::prefix('prodi')->group(function(){
     Route::get('/Manajemen_Informatika',function(){
         return "Manajemen Informatika";
     });
     Route::get('/Teknik_Informatika',function(){
         return "Teknik Informatika";
     });
+});*/
+
+Route::prefix('prodi')->group(function(){
+    Route::get('/mi', [PSController::class, 'mi']);
+    Route::get('/ti', [PSController::class, 'ti']);
 });
 
-Route::get('/berita/{num_news}/{news}', [NewsController::class,'news']);
+Route::get('/news/{num_news}', [NewsController::class,'news']);
 
-Route::prefix('sarana')->group(function(){
+/*Route::prefix('sarana')->group(function(){
     Route::get('/kantor',function(){
         return "Perkantoran";
     });
@@ -51,14 +59,35 @@ Route::prefix('sarana')->group(function(){
     Route::get('/lainnya',function(){
         return "Lainnya";
     });
+});*/
+
+Route::prefix('sarana')->group(function(){
+    Route::get('/kantor', [SaranaController::class, 'kantor']);
+    Route::get('/laboratorium', [SaranaController::class, 'Laboratorium']);
+    Route::get('/kelas', [SaranaController::class, 'kelas']);
+    Route::get('/lainnya', [SaranaController::class, 'lainnya']);
 });
 
 Route::get('/about', [AboutController::class,'about']);
 
 Route::get('/comment/{nama}/{pesan}', [CommentController::class,'comment']);
 
-Route::get('/hello', function(){
-    return view('hello', ['name' => 'Nissa']);
-});
+//Nissa Nursabrina_2031710029_22_MI2E//
+//Minggu 2 Praktikum 3
 
-//Nissa Nursabrina_2031710029_22_MI2E
+Route::get('/hello', function(){
+    return view('blog.hello', ['name' => 'Nissa']);
+}); //global view helper
+
+Use Illuminate\Support\Facades\View;
+return View::make('blog.hello', ['name' => 'Nissa']);
+
+Route::get('/hello', [WelcomeController::class, 'hello']); //lek wes dibuat controllernya
+
+//buat jalankan child
+Route::get('/profil', function(){
+    return view(view. 'child');
+});   
+
+//Nissa Nursabrina_2031710029_22_MI2E//
+//Minggu 3 Praktikum 1
