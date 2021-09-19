@@ -57,4 +57,8 @@ Route::get('/about', [AboutController::class,'about']);
 
 Route::get('/comment/{nama}/{pesan}', [CommentController::class,'comment']);
 
+Route::get('/hello', function(){
+    return view('hello', ['name' => 'Nissa']);
+});
+
 //Nissa Nursabrina_2031710029_22_MI2E
